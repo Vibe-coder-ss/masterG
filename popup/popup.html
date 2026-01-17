@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>masterG</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">🚀</span>
+        <h1 id="app-name">masterG</h1>
+      </div>
+      <span class="version" id="app-version">v1.0.0</span>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Theme Section -->
+      <section class="section theme-section">
+        <h2 class="section-title">
+          <span class="section-icon">🎨</span>
+          Display Theme
+        </h2>
+        <p class="section-description">Choose your preferred viewing experience</p>
+        
+        <div class="theme-options">
+          <label class="theme-option">
+            <input type="radio" name="theme" value="dark" id="theme-dark">
+            <span class="theme-card">
+              <span class="theme-icon">🌙</span>
+              <span class="theme-label">Dark</span>
+              <span class="theme-desc">Easy on the eyes</span>
+            </span>
+          </label>
+          
+          <label class="theme-option">
+            <input type="radio" name="theme" value="light" id="theme-light">
+            <span class="theme-card">
+              <span class="theme-icon">☀️</span>
+              <span class="theme-label">Light</span>
+              <span class="theme-desc">Bright & clear</span>
+            </span>
+          </label>
+          
+          <label class="theme-option">
+            <input type="radio" name="theme" value="default" id="theme-default" checked>
+            <span class="theme-card">
+              <span class="theme-icon">💻</span>
+              <span class="theme-label">Default</span>
+              <span class="theme-desc">Website's choice</span>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Dark Color Selection (shown when dark mode is selected) -->
+      <section class="section color-section" id="color-section" style="display: none;">
+        <h2 class="section-title">
+          <span class="section-icon">🎨</span>
+          Dark Color Preference
+        </h2>
+        <p class="section-description">Choose your preferred dark color scheme</p>
+        
+        <div class="color-options" id="color-options">
+          <!-- Color options will be dynamically generated from config.js -->
+        </div>
+      </section>
+
+      <!-- Pomodoro Section -->
+      <section class="section pomodoro-section">
+        <h2 class="section-title">
+          <span class="section-icon">🍅</span>
+          Pomodoro Timer
+        </h2>
+        
+        <div class="pomodoro-display" id="pomodoro-display">
+          <div class="pomodoro-status" id="pomodoro-status">Ready to Focus</div>
+          <span class="pomodoro-time" id="pomodoro-time">00:25</span>
+          <div class="pomodoro-session" id="pomodoro-session">
+            <span class="session-dots" id="session-dots">○ ○ ○ ○</span>
+          </div>
+        </div>
+        
+        <!-- Pomodoro Settings (collapsible) -->
+        <div class="pomodoro-settings-toggle">
+          <button class="settings-toggle-btn" id="pomodoro-settings-toggle">
+            ⚙️ Customize Times
+          </button>
+        </div>
+        
+        <div class="pomodoro-settings" id="pomodoro-settings" style="display: none;">
+          <div class="testing-notice">⚠️ Testing Mode: Using seconds instead of minutes</div>
+          <div class="setting-row">
+            <label for="focus-time">🎯 Focus Time</label>
+            <div class="setting-input">
+              <button class="adjust-btn" data-target="focus-time" data-action="decrease">−</button>
+              <input type="number" id="focus-time" min="1" max="120" value="25">
+              <span class="unit" id="focus-unit">sec</span>
+              <button class="adjust-btn" data-target="focus-time" data-action="increase">+</button>
+            </div>
+          </div>
+          <div class="setting-row">
+            <label for="break-time">☕ Break Time</label>
+            <div class="setting-input">
+              <button class="adjust-btn" data-target="break-time" data-action="decrease">−</button>
+              <input type="number" id="break-time" min="1" max="60" value="5">
+              <span class="unit" id="break-unit">sec</span>
+              <button class="adjust-btn" data-target="break-time" data-action="increase">+</button>
+            </div>
+          </div>
+          <div class="setting-row">
+            <label for="long-break-time">🌴 Long Break</label>
+            <div class="setting-input">
+              <button class="adjust-btn" data-target="long-break-time" data-action="decrease">−</button>
+              <input type="number" id="long-break-time" min="1" max="60" value="15">
+              <span class="unit" id="long-break-unit">sec</span>
+              <button class="adjust-btn" data-target="long-break-time" data-action="increase">+</button>
+            </div>
+          </div>
+          <button class="save-settings-btn" id="save-pomodoro-settings">Save Settings</button>
+        </div>
+        
+        <div class="pomodoro-controls">
+          <button class="control-btn primary" id="pomodoro-start">
+            <span class="btn-icon">▶</span> Start Focus
+          </button>
+          <button class="control-btn" id="pomodoro-pause" style="display: none;">
+            <span class="btn-icon">⏸</span> Pause
+          </button>
+          <button class="control-btn" id="pomodoro-resume" style="display: none;">
+            <span class="btn-icon">▶</span> Resume
+          </button>
+          <button class="control-btn secondary" id="pomodoro-skip" style="display: none;">
+            <span class="btn-icon">⏭</span> Skip
+          </button>
+          <button class="control-btn danger" id="pomodoro-reset" style="display: none;">
+            <span class="btn-icon">↺</span> Reset
+          </button>
+        </div>
+      </section>
+
+      <!-- Timer Section -->
+      <section class="section timer-section">
+        <h2 class="section-title">
+          <span class="section-icon">⏱️</span>
+          Timer
+        </h2>
+        
+        <div class="timer-display" id="timer-display">
+          <span class="timer-time" id="timer-time">00:00:00</span>
+        </div>
+        
+        <div class="timer-input-group" id="timer-input-group">
+          <div class="timer-inputs">
+            <div class="time-input-wrapper">
+              <input type="number" id="timer-hours" min="0" max="99" value="0" class="time-input">
+              <label>hrs</label>
+            </div>
+            <span class="time-separator">:</span>
+            <div class="time-input-wrapper">
+              <input type="number" id="timer-minutes" min="0" max="59" value="5" class="time-input">
+              <label>min</label>
+            </div>
+            <span class="time-separator">:</span>
+            <div class="time-input-wrapper">
+              <input type="number" id="timer-seconds" min="0" max="59" value="0" class="time-input">
+              <label>sec</label>
+            </div>
+          </div>
+          
+          <div class="timer-presets" id="timer-presets">
+            <!-- Presets will be generated from config.js -->
+          </div>
+        </div>
+        
+        <div class="timer-controls">
+          <button class="control-btn primary" id="timer-start">
+            <span class="btn-icon">▶</span> Start
+          </button>
+          <button class="control-btn" id="timer-pause" style="display: none;">
+            <span class="btn-icon">⏸</span> Pause
+          </button>
+          <button class="control-btn" id="timer-resume" style="display: none;">
+            <span class="btn-icon">▶</span> Resume
+          </button>
+          <button class="control-btn danger" id="timer-reset" style="display: none;">
+            <span class="btn-icon">↺</span> Reset
+          </button>
+        </div>
+      </section>
+
+      <!-- Stopwatch Section -->
+      <section class="section stopwatch-section">
+        <h2 class="section-title">
+          <span class="section-icon">⏰</span>
+          Stopwatch
+        </h2>
+        
+        <div class="stopwatch-display">
+          <span class="stopwatch-time" id="stopwatch-time">00:00:00</span>
+          <span class="stopwatch-ms" id="stopwatch-ms">.000</span>
+        </div>
+        
+        <div class="stopwatch-controls">
+          <button class="control-btn primary" id="stopwatch-start">
+            <span class="btn-icon">▶</span> Start
+          </button>
+          <button class="control-btn" id="stopwatch-pause" style="display: none;">
+            <span class="btn-icon">⏸</span> Pause
+          </button>
+          <button class="control-btn" id="stopwatch-resume" style="display: none;">
+            <span class="btn-icon">▶</span> Resume
+          </button>
+          <button class="control-btn secondary" id="stopwatch-lap" style="display: none;">
+            <span class="btn-icon">🏁</span> Lap
+          </button>
+          <button class="control-btn danger" id="stopwatch-reset" style="display: none;">
+            <span class="btn-icon">↺</span> Reset
+          </button>
+        </div>
+        
+        <div class="lap-times" id="lap-times" style="display: none;">
+          <h3 class="lap-title">Lap Times</h3>
+          <ul class="lap-list" id="lap-list"></ul>
+        </div>
+      </section>
+
+      <!-- Clipboard Section -->
+      <section class="section clipboard-section">
+        <h2 class="section-title">
+          <span class="section-icon">📋</span>
+          Clipboard History
+        </h2>
+        
+        <div class="clipboard-controls">
+          <button class="control-btn primary" id="clipboard-capture">
+            <span class="btn-icon">📥</span> Capture Clipboard
+          </button>
+          <button class="control-btn danger" id="clipboard-clear">
+            <span class="btn-icon">🗑️</span> Clear All
+          </button>
+        </div>
+        
+        <div class="clipboard-settings-toggle">
+          <button class="settings-toggle-btn" id="clipboard-settings-toggle">
+            ⚙️ Settings
+          </button>
+        </div>
+        
+        <div class="clipboard-settings" id="clipboard-settings" style="display: none;">
+          <div class="setting-row">
+            <label for="clipboard-auto-capture">
+              <span>🔄 Auto-Capture</span>
+              <span class="setting-hint">Capture on Ctrl/Cmd+C</span>
+            </label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="clipboard-auto-capture" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <label for="clipboard-max-items">Max Items to Store</label>
+            <div class="setting-input">
+              <button class="adjust-btn" data-target="clipboard-max-items" data-action="decrease">−</button>
+              <input type="number" id="clipboard-max-items" min="5" max="50" value="10">
+              <button class="adjust-btn" data-target="clipboard-max-items" data-action="increase">+</button>
+            </div>
+          </div>
+          <button class="save-settings-btn" id="save-clipboard-settings">Save Settings</button>
+        </div>
+        
+        <div class="clipboard-list-container">
+          <div class="clipboard-list" id="clipboard-list">
+            <div class="clipboard-empty" id="clipboard-empty">
+              <span class="empty-icon">📋</span>
+              <p>No items in clipboard history</p>
+              <p class="empty-hint">Click "Capture Clipboard" to add items</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Status Indicator -->
+      <div class="status-bar">
+        <span class="status-dot"></span>
+        <span class="status-text">Theme applied</span>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="privacy-badge">
+        <span class="privacy-icon">🔒</span>
+        <span>Privacy First • No Tracking • No Data Sharing</span>
+      </div>
+      <div class="footer-links">
+        <a id="github-link" href="#" target="_blank" class="footer-link">
+          <span>⭐</span> Open Source on GitHub
+        </a>
+      </div>
+      <p class="copyright" id="copyright">© 2024 masterG. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <!-- Load config first, then popup script -->
+  <script src="../config.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

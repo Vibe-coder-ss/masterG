@@ -1,0 +1,634 @@
+/**
+ * masterG - Content Styles
+ * CSS for dark mode and light mode functionality
+ * 
+ * Uses CSS custom properties (variables) for dynamic color schemes.
+ * Colors are set via JavaScript from config.js
+ */
+
+/* ============================================
+   CSS VARIABLES FOR THEMING
+   ============================================ */
+
+:root {
+  --masterG-transition: 0.3s ease;
+  
+  /* Default dark colors (can be overridden by JS) */
+  --masterG-bg: #1a1a2e;
+  --masterG-card-bg: #252542;
+  --masterG-text: #e8e8e8;
+  --masterG-text-muted: #a0a0a0;
+  --masterG-border: #3f3f5a;
+  --masterG-accent: #6366f1;
+}
+
+/* ============================================
+   DARK MODE STYLES
+   ============================================ */
+
+/* Set color scheme for native dark mode support */
+html.masterG-dark-mode {
+  color-scheme: dark !important;
+}
+
+/* Main dark mode styling - using CSS variables */
+html.masterG-dark-mode,
+html.masterG-dark-mode body {
+  background-color: var(--masterG-bg) !important;
+  color: var(--masterG-text) !important;
+}
+
+/* Force all text to be visible - high specificity */
+.masterG-dark-mode,
+.masterG-dark-mode *:not(img):not(video):not(picture):not(canvas):not(iframe):not(svg) {
+  color: var(--masterG-text) !important;
+  border-color: var(--masterG-border) !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: var(--masterG-text) !important;
+}
+
+/* Background for all structural elements */
+.masterG-dark-mode body,
+.masterG-dark-mode html,
+.masterG-dark-mode main,
+.masterG-dark-mode article,
+.masterG-dark-mode section,
+.masterG-dark-mode aside,
+.masterG-dark-mode div,
+.masterG-dark-mode span,
+.masterG-dark-mode p,
+.masterG-dark-mode ul,
+.masterG-dark-mode ol,
+.masterG-dark-mode li,
+.masterG-dark-mode table,
+.masterG-dark-mode tbody,
+.masterG-dark-mode thead,
+.masterG-dark-mode tfoot,
+.masterG-dark-mode tr {
+  background-color: var(--masterG-bg) !important;
+}
+
+/* Navigation and header/footer - slightly darker */
+.masterG-dark-mode nav,
+.masterG-dark-mode header,
+.masterG-dark-mode footer,
+.masterG-dark-mode [class*="nav"],
+.masterG-dark-mode [class*="header"],
+.masterG-dark-mode [class*="footer"],
+.masterG-dark-mode [class*="sidebar"],
+.masterG-dark-mode [class*="menu"],
+.masterG-dark-mode [class*="toolbar"] {
+  background-color: var(--masterG-card-bg) !important;
+}
+
+/* Cards, panels, containers - slightly lighter dark */
+.masterG-dark-mode [class*="card"],
+.masterG-dark-mode [class*="panel"],
+.masterG-dark-mode [class*="box"],
+.masterG-dark-mode [class*="modal"],
+.masterG-dark-mode [class*="dialog"],
+.masterG-dark-mode [class*="dropdown"],
+.masterG-dark-mode [class*="popup"],
+.masterG-dark-mode [class*="tooltip"],
+.masterG-dark-mode [class*="popover"],
+.masterG-dark-mode [class*="overlay"] {
+  background-color: var(--masterG-card-bg) !important;
+}
+
+/* Text colors - ensure high visibility */
+.masterG-dark-mode h1,
+.masterG-dark-mode h2,
+.masterG-dark-mode h3,
+.masterG-dark-mode h4,
+.masterG-dark-mode h5,
+.masterG-dark-mode h6 {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.masterG-dark-mode p,
+.masterG-dark-mode span,
+.masterG-dark-mode div,
+.masterG-dark-mode li,
+.masterG-dark-mode td,
+.masterG-dark-mode th,
+.masterG-dark-mode label,
+.masterG-dark-mode blockquote,
+.masterG-dark-mode figcaption,
+.masterG-dark-mode dt,
+.masterG-dark-mode dd,
+.masterG-dark-mode address,
+.masterG-dark-mode cite,
+.masterG-dark-mode q,
+.masterG-dark-mode strong,
+.masterG-dark-mode b,
+.masterG-dark-mode em,
+.masterG-dark-mode i,
+.masterG-dark-mode u,
+.masterG-dark-mode s,
+.masterG-dark-mode mark,
+.masterG-dark-mode del,
+.masterG-dark-mode ins,
+.masterG-dark-mode sub,
+.masterG-dark-mode sup {
+  color: var(--masterG-text) !important;
+  -webkit-text-fill-color: var(--masterG-text) !important;
+}
+
+/* Secondary/muted text */
+.masterG-dark-mode small,
+.masterG-dark-mode [class*="muted"],
+.masterG-dark-mode [class*="secondary"],
+.masterG-dark-mode [class*="caption"],
+.masterG-dark-mode [class*="subtitle"],
+.masterG-dark-mode [class*="hint"],
+.masterG-dark-mode [class*="help"],
+.masterG-dark-mode [class*="description"] {
+  color: var(--masterG-text-muted) !important;
+  -webkit-text-fill-color: var(--masterG-text-muted) !important;
+}
+
+/* Links - bright accent color for visibility */
+.masterG-dark-mode a,
+.masterG-dark-mode a:link {
+  color: #60a5fa !important;
+  -webkit-text-fill-color: #60a5fa !important;
+}
+
+.masterG-dark-mode a:hover {
+  color: #93c5fd !important;
+  -webkit-text-fill-color: #93c5fd !important;
+}
+
+.masterG-dark-mode a:visited {
+  color: #a78bfa !important;
+  -webkit-text-fill-color: #a78bfa !important;
+}
+
+/* Form elements - ensure dark background and light text */
+.masterG-dark-mode input,
+.masterG-dark-mode textarea,
+.masterG-dark-mode select,
+.masterG-dark-mode input[type="text"],
+.masterG-dark-mode input[type="email"],
+.masterG-dark-mode input[type="password"],
+.masterG-dark-mode input[type="number"],
+.masterG-dark-mode input[type="search"],
+.masterG-dark-mode input[type="tel"],
+.masterG-dark-mode input[type="url"],
+.masterG-dark-mode input[type="date"],
+.masterG-dark-mode input[type="time"],
+.masterG-dark-mode input[type="datetime-local"] {
+  background-color: var(--masterG-card-bg) !important;
+  color: var(--masterG-text) !important;
+  -webkit-text-fill-color: var(--masterG-text) !important;
+  border: 1px solid var(--masterG-border) !important;
+  box-shadow: none !important;
+}
+
+/* Input focus state */
+.masterG-dark-mode input:focus,
+.masterG-dark-mode textarea:focus,
+.masterG-dark-mode select:focus {
+  background-color: var(--masterG-card-bg) !important;
+  border-color: var(--masterG-accent) !important;
+  outline: 2px solid var(--masterG-accent) !important;
+  outline-offset: -2px;
+}
+
+/* Placeholders */
+.masterG-dark-mode input::placeholder,
+.masterG-dark-mode textarea::placeholder {
+  color: var(--masterG-text-muted) !important;
+  -webkit-text-fill-color: var(--masterG-text-muted) !important;
+  opacity: 1 !important;
+}
+
+/* Autofill fix - prevent browser's white background on autofill */
+.masterG-dark-mode input:-webkit-autofill,
+.masterG-dark-mode input:-webkit-autofill:hover,
+.masterG-dark-mode input:-webkit-autofill:focus,
+.masterG-dark-mode input:-webkit-autofill:active,
+.masterG-dark-mode textarea:-webkit-autofill,
+.masterG-dark-mode select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--masterG-card-bg) inset !important;
+  -webkit-text-fill-color: var(--masterG-text) !important;
+  box-shadow: 0 0 0 1000px var(--masterG-card-bg) inset !important;
+  caret-color: var(--masterG-text) !important;
+}
+
+/* Radio and Checkbox */
+.masterG-dark-mode input[type="checkbox"],
+.masterG-dark-mode input[type="radio"] {
+  accent-color: var(--masterG-accent) !important;
+}
+
+/* Buttons */
+.masterG-dark-mode button,
+.masterG-dark-mode [role="button"],
+.masterG-dark-mode input[type="button"],
+.masterG-dark-mode input[type="submit"],
+.masterG-dark-mode input[type="reset"],
+.masterG-dark-mode [class*="btn"],
+.masterG-dark-mode [class*="button"] {
+  background-color: var(--masterG-card-bg) !important;
+  color: var(--masterG-text) !important;
+  -webkit-text-fill-color: var(--masterG-text) !important;
+  border-color: var(--masterG-border) !important;
+}
+
+.masterG-dark-mode button:hover,
+.masterG-dark-mode [role="button"]:hover,
+.masterG-dark-mode [class*="btn"]:hover,
+.masterG-dark-mode [class*="button"]:hover {
+  background-color: var(--masterG-border) !important;
+}
+
+/* Primary/colored buttons */
+.masterG-dark-mode button[class*="primary"],
+.masterG-dark-mode [class*="btn-primary"],
+.masterG-dark-mode [class*="button-primary"],
+.masterG-dark-mode [class*="primary-btn"],
+.masterG-dark-mode [class*="primary-button"] {
+  background-color: var(--masterG-accent) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-color: var(--masterG-accent) !important;
+}
+
+/* Tables */
+.masterG-dark-mode table {
+  background-color: var(--masterG-bg) !important;
+  border-color: var(--masterG-border) !important;
+}
+
+.masterG-dark-mode th {
+  background-color: var(--masterG-card-bg) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.masterG-dark-mode td {
+  background-color: var(--masterG-bg) !important;
+  color: var(--masterG-text) !important;
+  -webkit-text-fill-color: var(--masterG-text) !important;
+}
+
+.masterG-dark-mode tr:nth-child(even) td {
+  background-color: var(--masterG-card-bg) !important;
+}
+
+.masterG-dark-mode tr:hover td {
+  background-color: var(--masterG-border) !important;
+}
+
+/* Code blocks */
+.masterG-dark-mode pre,
+.masterG-dark-mode code,
+.masterG-dark-mode samp,
+.masterG-dark-mode kbd {
+  background-color: #0d1117 !important;
+  color: #c9d1d9 !important;
+  -webkit-text-fill-color: #c9d1d9 !important;
+  border-color: var(--masterG-border) !important;
+}
+
+/* Horizontal rules */
+.masterG-dark-mode hr {
+  border-color: var(--masterG-border) !important;
+  background-color: var(--masterG-border) !important;
+}
+
+/* Scrollbars */
+.masterG-dark-mode ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.masterG-dark-mode ::-webkit-scrollbar-track {
+  background: var(--masterG-bg) !important;
+}
+
+.masterG-dark-mode ::-webkit-scrollbar-thumb {
+  background: var(--masterG-border) !important;
+  border-radius: 6px;
+  border: 2px solid var(--masterG-bg);
+}
+
+.masterG-dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: var(--masterG-text-muted) !important;
+}
+
+/* Selection */
+.masterG-dark-mode ::selection {
+  background-color: var(--masterG-accent) !important;
+  color: #ffffff !important;
+}
+
+/* Preserve media elements - DO NOT change */
+.masterG-dark-mode img,
+.masterG-dark-mode video,
+.masterG-dark-mode picture,
+.masterG-dark-mode picture *,
+.masterG-dark-mode canvas,
+.masterG-dark-mode iframe,
+.masterG-dark-mode embed,
+.masterG-dark-mode object,
+.masterG-dark-mode svg:not([class*="icon"]):not([aria-hidden="true"]),
+.masterG-dark-mode [class*="image"],
+.masterG-dark-mode [class*="photo"],
+.masterG-dark-mode [class*="thumbnail"],
+.masterG-dark-mode [class*="avatar"],
+.masterG-dark-mode [class*="logo"],
+.masterG-dark-mode [class*="icon"],
+.masterG-dark-mode [class*="emoji"] {
+  filter: none !important;
+  background-color: transparent !important;
+  color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
+}
+
+/* Background images - don't override */
+.masterG-dark-mode [style*="background-image"] {
+  background-color: transparent !important;
+}
+
+/* Fix for inline SVG icons */
+.masterG-dark-mode svg[class*="icon"],
+.masterG-dark-mode svg[aria-hidden="true"] {
+  fill: currentColor !important;
+  color: var(--masterG-text) !important;
+}
+
+/* ============================================
+   LIGHT MODE STYLES
+   ============================================ */
+
+/* Set color scheme */
+html.masterG-light-mode {
+  color-scheme: light !important;
+}
+
+/* Main light mode styling */
+html.masterG-light-mode,
+html.masterG-light-mode body {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+}
+
+/* Force all text to be dark on light background */
+.masterG-light-mode,
+.masterG-light-mode *:not(img):not(video):not(picture):not(canvas):not(iframe):not(svg) {
+  color: #1f2937 !important;
+  border-color: #e5e7eb !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: #1f2937 !important;
+}
+
+/* Background overrides */
+.masterG-light-mode body,
+.masterG-light-mode html,
+.masterG-light-mode main,
+.masterG-light-mode article,
+.masterG-light-mode section,
+.masterG-light-mode aside,
+.masterG-light-mode div,
+.masterG-light-mode span,
+.masterG-light-mode p,
+.masterG-light-mode ul,
+.masterG-light-mode ol,
+.masterG-light-mode li,
+.masterG-light-mode table,
+.masterG-light-mode tbody,
+.masterG-light-mode tr {
+  background-color: #ffffff !important;
+}
+
+/* Navigation and header/footer */
+.masterG-light-mode nav,
+.masterG-light-mode header,
+.masterG-light-mode footer,
+.masterG-light-mode [class*="nav"],
+.masterG-light-mode [class*="header"],
+.masterG-light-mode [class*="footer"],
+.masterG-light-mode [class*="sidebar"],
+.masterG-light-mode [class*="menu"],
+.masterG-light-mode [class*="toolbar"] {
+  background-color: #f9fafb !important;
+}
+
+/* Cards and containers */
+.masterG-light-mode [class*="card"],
+.masterG-light-mode [class*="panel"],
+.masterG-light-mode [class*="box"],
+.masterG-light-mode [class*="modal"],
+.masterG-light-mode [class*="dialog"],
+.masterG-light-mode [class*="dropdown"],
+.masterG-light-mode [class*="popup"],
+.masterG-light-mode [class*="tooltip"] {
+  background-color: #f9fafb !important;
+  border-color: #e5e7eb !important;
+}
+
+/* Text colors */
+.masterG-light-mode h1,
+.masterG-light-mode h2,
+.masterG-light-mode h3,
+.masterG-light-mode h4,
+.masterG-light-mode h5,
+.masterG-light-mode h6 {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+.masterG-light-mode p,
+.masterG-light-mode span,
+.masterG-light-mode div,
+.masterG-light-mode li,
+.masterG-light-mode td,
+.masterG-light-mode th,
+.masterG-light-mode label,
+.masterG-light-mode blockquote,
+.masterG-light-mode strong,
+.masterG-light-mode b,
+.masterG-light-mode em,
+.masterG-light-mode i {
+  color: #1f2937 !important;
+  -webkit-text-fill-color: #1f2937 !important;
+}
+
+/* Links */
+.masterG-light-mode a,
+.masterG-light-mode a:link {
+  color: #2563eb !important;
+  -webkit-text-fill-color: #2563eb !important;
+}
+
+.masterG-light-mode a:hover {
+  color: #1d4ed8 !important;
+  -webkit-text-fill-color: #1d4ed8 !important;
+}
+
+.masterG-light-mode a:visited {
+  color: #7c3aed !important;
+  -webkit-text-fill-color: #7c3aed !important;
+}
+
+/* Form elements */
+.masterG-light-mode input,
+.masterG-light-mode textarea,
+.masterG-light-mode select,
+.masterG-light-mode input[type="text"],
+.masterG-light-mode input[type="email"],
+.masterG-light-mode input[type="password"],
+.masterG-light-mode input[type="number"],
+.masterG-light-mode input[type="search"] {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  -webkit-text-fill-color: #1f2937 !important;
+  border: 1px solid #d1d5db !important;
+  box-shadow: none !important;
+}
+
+.masterG-light-mode input:focus,
+.masterG-light-mode textarea:focus,
+.masterG-light-mode select:focus {
+  border-color: #3b82f6 !important;
+  outline: 2px solid #3b82f6 !important;
+  outline-offset: -2px;
+}
+
+.masterG-light-mode input::placeholder,
+.masterG-light-mode textarea::placeholder {
+  color: #9ca3af !important;
+  -webkit-text-fill-color: #9ca3af !important;
+  opacity: 1 !important;
+}
+
+/* Autofill fix */
+.masterG-light-mode input:-webkit-autofill,
+.masterG-light-mode input:-webkit-autofill:hover,
+.masterG-light-mode input:-webkit-autofill:focus,
+.masterG-light-mode textarea:-webkit-autofill,
+.masterG-light-mode select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #1f2937 !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+}
+
+/* Buttons */
+.masterG-light-mode button,
+.masterG-light-mode [role="button"],
+.masterG-light-mode input[type="button"],
+.masterG-light-mode input[type="submit"],
+.masterG-light-mode [class*="btn"],
+.masterG-light-mode [class*="button"] {
+  background-color: #f3f4f6 !important;
+  color: #1f2937 !important;
+  -webkit-text-fill-color: #1f2937 !important;
+  border-color: #d1d5db !important;
+}
+
+.masterG-light-mode button:hover,
+.masterG-light-mode [role="button"]:hover {
+  background-color: #e5e7eb !important;
+}
+
+/* Tables */
+.masterG-light-mode table {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
+}
+
+.masterG-light-mode th {
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+
+.masterG-light-mode td {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  -webkit-text-fill-color: #1f2937 !important;
+}
+
+.masterG-light-mode tr:nth-child(even) td {
+  background-color: #f9fafb !important;
+}
+
+/* Code blocks */
+.masterG-light-mode pre,
+.masterG-light-mode code,
+.masterG-light-mode samp,
+.masterG-light-mode kbd {
+  background-color: #f6f8fa !important;
+  color: #24292f !important;
+  -webkit-text-fill-color: #24292f !important;
+  border-color: #d0d7de !important;
+}
+
+/* Preserve media elements */
+.masterG-light-mode img,
+.masterG-light-mode video,
+.masterG-light-mode picture,
+.masterG-light-mode canvas,
+.masterG-light-mode iframe,
+.masterG-light-mode svg:not([class*="icon"]),
+.masterG-light-mode [class*="image"],
+.masterG-light-mode [class*="photo"],
+.masterG-light-mode [class*="avatar"],
+.masterG-light-mode [class*="logo"],
+.masterG-light-mode [class*="icon"] {
+  filter: none !important;
+  background-color: transparent !important;
+  color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
+}
+
+/* ============================================
+   SMOOTH TRANSITIONS
+   ============================================ */
+
+html,
+html body,
+html body * {
+  transition: background-color var(--masterG-transition, 0.3s ease),
+              color var(--masterG-transition, 0.3s ease),
+              border-color var(--masterG-transition, 0.3s ease);
+}
+
+/* Disable transitions for media */
+img, video, canvas, iframe, svg, picture {
+  transition: none !important;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Focus visibility */
+.masterG-dark-mode *:focus-visible,
+.masterG-light-mode *:focus-visible {
+  outline: 2px solid #6366f1 !important;
+  outline-offset: 2px !important;
+}
+
+/* Selection colors */
+.masterG-dark-mode ::selection {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+.masterG-light-mode ::selection {
+  background-color: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  html body,
+  html body * {
+    transition: none !important;
+  }
+}

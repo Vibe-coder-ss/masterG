@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⏰ Timer Complete - masterG</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: bgPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes bgPulse {
+      0%, 100% {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+      }
+      50% {
+        background: linear-gradient(135deg, #2a1a3e, #1a2a4e);
+      }
+    }
+    
+    .alert-container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 420px;
+      width: 100%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                  0 0 40px rgba(99, 102, 241, 0.3);
+      animation: slideIn 0.3s ease, borderGlow 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    
+    @keyframes borderGlow {
+      0%, 100% {
+        border-color: rgba(99, 102, 241, 0.5);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                    0 0 40px rgba(99, 102, 241, 0.3);
+      }
+      50% {
+        border-color: rgba(239, 68, 68, 0.7);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                    0 0 60px rgba(239, 68, 68, 0.4);
+      }
+    }
+    
+    .alert-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: bounce 0.5s ease infinite alternate, shake 0.3s ease-in-out infinite;
+      display: inline-block;
+    }
+    
+    @keyframes bounce {
+      from { transform: translateY(0) rotate(-5deg); }
+      to { transform: translateY(-15px) rotate(5deg); }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+    
+    .alert-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(99, 102, 241, 0.5);
+      animation: textPulse 1s ease-in-out infinite;
+    }
+    
+    @keyframes textPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    
+    .alert-message {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 20px;
+    }
+    
+    .alert-time {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 25px;
+      padding: 8px 16px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      display: inline-block;
+    }
+    
+    .btn-dismiss {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      border: none;
+      padding: 16px 50px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+      animation: btnPulse 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes btnPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
+      }
+      50% {
+        transform: scale(1.02);
+        box-shadow: 0 6px 30px rgba(99, 102, 241, 0.7);
+      }
+    }
+    
+    .btn-dismiss:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6);
+      animation: none;
+    }
+    
+    .btn-dismiss:active {
+      transform: scale(0.98);
+    }
+    
+    .btn-action {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+      margin-left: 10px;
+    }
+    
+    .btn-action:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+    }
+    
+    .buttons-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    /* Pomodoro Focus Complete Theme */
+    body.focus-complete {
+      animation: bgPulseFocus 2s ease-in-out infinite;
+    }
+    
+    @keyframes bgPulseFocus {
+      0%, 100% {
+        background: linear-gradient(135deg, #1a2e1a, #162e16);
+      }
+      50% {
+        background: linear-gradient(135deg, #2a3e2a, #1a3e1a);
+      }
+    }
+    
+    body.focus-complete .alert-container {
+      border-color: #22c55e;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                  0 0 40px rgba(34, 197, 94, 0.3);
+    }
+    
+    @keyframes borderGlowGreen {
+      0%, 100% {
+        border-color: rgba(34, 197, 94, 0.5);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                    0 0 40px rgba(34, 197, 94, 0.3);
+      }
+      50% {
+        border-color: rgba(34, 197, 94, 0.8);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                    0 0 60px rgba(34, 197, 94, 0.5);
+      }
+    }
+    
+    body.focus-complete .alert-container {
+      animation: slideIn 0.3s ease, borderGlowGreen 1.5s ease-in-out infinite;
+    }
+    
+    .hint {
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .hint kbd {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-family: monospace;
+    }
+    
+    .masterG-logo {
+      margin-top: 25px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .masterG-logo span {
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <div class="alert-container" id="alert-container">
+    <div class="alert-icon" id="alert-icon">⏰</div>
+    <h1 class="alert-title" id="alert-title">Timer Complete!</h1>
+    <p class="alert-message" id="alert-message">Your countdown timer has finished.</p>
+    <p class="alert-time" id="completion-time"></p>
+    <button class="btn-dismiss" id="dismiss-btn" autofocus>Dismiss</button>
+    <button class="btn-action" id="action-btn" style="display: none;">Start Break</button>
+    <p class="hint">Press <kbd>Enter</kbd> or <kbd>Esc</kbd> to dismiss</p>
+    <div class="masterG-logo">
+      Powered by <span>masterG</span>
+    </div>
+  </div>
+  
+  <script src="alert.js"></script>
+</body>
+</html>
